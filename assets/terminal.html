@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Terminal</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0f172a;display:flex;justify-content:center;align-items:center;min-height:100vh;font-family:'Cascadia Code','Fira Code','Consolas',monospace;padding:32px}
+.terminal{background:#1e293b;border-radius:16px;overflow:hidden;width:860px;border:1px solid rgba(99,102,241,0.2);box-shadow:0 20px 60px rgba(0,0,0,0.4)}
+.titlebar{display:flex;align-items:center;gap:8px;padding:14px 20px;background:#0f172a;border-bottom:1px solid rgba(255,255,255,0.05)}
+.dots{display:flex;gap:8px}
+.dots span{width:12px;height:12px;border-radius:50%}
+.d1{background:#ef4444}.d2{background:#eab308}.d3{background:#22c55e}
+.title-text{color:#64748b;font-size:13px;margin-left:auto}
+.body{padding:24px;min-height:320px}
+.line{color:#94a3b8;font-size:14px;line-height:1.8;white-space:pre-wrap;margin-bottom:2px}
+.prompt{color:#22d3ee}
+.cmd{color:#e2e8f0}
+.out{color:#94a3b8}
+.ok{color:#34d399}
+.err{color:#ef4444}
+.info{color:#818cf8}
+.warn{color:#fbbf24}
+.hl{color:#f472b6}
+.cursor::after{content:'█';color:#22d3ee;animation:blink 1s step-end infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+</style>
+</head>
+<body>
+<div class="terminal">
+  <div class="titlebar">
+    <div class="dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
+    <div class="title-text">loop-agent go --goal "Build a REST API" --project-dir ./my-api</div>
+  </div>
+  <div class="body">
+    <div class="line"><span class="prompt">$ </span><span class="cmd">loop-agent go --goal "Build a REST API" --project-dir ./my-api</span></div>
+    <div class="line">&nbsp;</div>
+    <div class="line"><span class="info">=== Loop: Build a REST API ===</span></div>
+    <div class="line">&nbsp;</div>
+    <div class="line"><span class="prompt">[DISCOVERY]</span> <span class="out">Interviewing user to understand project requirements...</span></div>
+    <div class="line"><span class="ok">✔</span> <span class="out">Project brief captured</span></div>
+    <div class="line"><span class="ok">✔</span> <span class="out">Feature list created (12 features)</span></div>
+    <div class="line"><span class="ok">✔</span> <span class="out">Loop files scaffolded</span></div>
+    <div class="line">&nbsp;</div>
+    <div class="line"><span class="prompt">[PLANNING]</span> <span class="out">Creating implementation plan...</span></div>
+    <div class="line"><span class="ok">✔</span> <span class="out">Spec written to docs/</span></div>
+    <div class="line">&nbsp;</div>
+    <div class="line"><span class="prompt">[IMPLEMENTING]</span> <span class="out">Building feature 1/12: User authentication...</span></div>
+    <div class="line"><span class="ok">✔</span> <span class="out">Implementation complete</span></div>
+    <div class="line">&nbsp;</div>
+    <div class="line"><span class="prompt">[VERIFYING]</span> <span class="out">Running tests...</span></div>
+    <div class="line"><span class="ok">✔</span> <span class="out">12 passed, 0 failed</span></div>
+    <div class="line">&nbsp;</div>
+    <div class="line"><span class="prompt">[BUG_HUNT]</span> <span class="out">Scanning for bugs...</span></div>
+    <div class="line"><span class="ok">✔</span> <span class="out">No bugs found — clean</span></div>
+    <div class="line">&nbsp;</div>
+    <div class="line"><span class="prompt">[READY]</span> <span class="ok">★ Release ready</span></div>
+    <div class="line">&nbsp;</div>
+    <div class="line"><span class="info">=== Loop complete ===</span></div>
+    <div class="line"><span class="ok">State: READY | Loops: 6 | Features: 12/12</span></div>
+    <div class="line"><span class="cursor">&nbsp;</span></div>
+  </div>
+</div>
+</body>
+</html>

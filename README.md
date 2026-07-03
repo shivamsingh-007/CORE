@@ -1,95 +1,229 @@
-# loop-agent-adk
+<p align="center">
+  <img src="assets/banner.png" alt="Loop Agent" width="100%">
+</p>
 
-Simple ReAct agent
-Agent generated with `agents-cli` version `0.6.1`
+<h1 align="center">Loop Agent</h1>
 
-## Project Structure
+<p align="center">
+  <strong>Autonomous multi-agent development pipeline. Give it a goal — it runs until it's done.</strong>
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/version-1.0.0-blue?style=flat-square" alt="version">
+  <img src="https://img.shields.io/badge/python-3.11+-green?style=flat-square" alt="python">
+  <img src="https://img.shields.io/badge/license-MIT-purple?style=flat-square" alt="license">
+</p>
+
+---
+
+## What is Loop Agent?
+
+Loop Agent is a **fully autonomous multi-agent system** that takes a project goal and runs a complete development pipeline — from discovery to release — with **zero manual intervention**.
+
+Give it a single goal like *"Build a REST API with auth"*, and it will:
+
+1. **Interview** you to understand requirements
+2. **Plan** the implementation step-by-step
+3. **Scaffold** the project structure
+4. **Implement** features one at a time
+5. **Verify** everything works
+6. **Hunt** for bugs automatically
+7. **Release** when it's done
+
+---
+
+## How It Works
+
+<p align="center">
+  <img src="assets/workflow.gif" alt="Loop Workflow" width="100%">
+</p>
+
+The orchestrator routes through **11 states** until the project is ready:
 
 ```
-loop-agent-adk/
-├── app/         # Core agent code
-│   ├── agent.py               # Main agent logic
-│   ├── fast_api_app.py        # FastAPI Backend server
-│   └── app_utils/             # App utilities and helpers
-├── .github/                   # CI/CD pipeline configurations for GitHub Actions
-├── deployment/                # Infrastructure and deployment scripts
-├── tests/                     # Unit, integration, and load tests
-├── GEMINI.md                  # AI-assisted development guide
-└── pyproject.toml             # Project dependencies
+DISCOVERY → PLANNING → SCAFFOLDING → INITIALIZING → IMPLEMENTING → SELF_CHECK → VERIFYING → BUG_HUNT → REWORK → READY
 ```
 
-> 💡 **Tip:** Use [Antigravity CLI](https://antigravity.google/) for AI-assisted development - project context is pre-configured in `GEMINI.md`.
+After every phase, all core files (AGENTS.md, state.md, tasks/, context.md) are **automatically synced** so the system never loses context.
 
-## Requirements
+---
 
-Before you begin, ensure you have:
-- **uv**: Python package manager (used for all dependency management in this project) - [Install](https://docs.astral.sh/uv/getting-started/installation/) ([add packages](https://docs.astral.sh/uv/concepts/dependencies/) with `uv add <package>`)
-- **agents-cli**: Agents CLI - Install with `uv tool install google-agents-cli`
-- **Google Cloud SDK**: For GCP services - [Install](https://cloud.google.com/sdk/docs/install)
-- **Terraform**: For infrastructure deployment - [Install](https://developer.hashicorp.com/terraform/downloads)
+## Features
 
+| Feature | Description |
+|---------|-------------|
+| **Fully Autonomous** | Single command: `loop-agent go --goal "..."` — runs until DONE |
+| **5 Specialized Agents** | Initializer, Harness, Coding, Verifying, T3MP3ST (bug hunter) |
+| **Auto-Sync** | Core loop files updated after every phase change |
+| **Resume Support** | Session persists to `.loop-session.json` — resume from where you left off |
+| **Bug Hunting** | T3MP3ST agent runs 5-stage bug scan (recon, scan, exploit, review, report) |
+| **Skill Format** | Each agent is documented as an anthropic-format SKILL.md |
+| **State Persistence** | Markdown files track all state — human-readable, version-controllable |
+
+---
 
 ## Quick Start
 
-Install `agents-cli` and its skills if not already installed:
-
 ```bash
-uvx google-agents-cli setup
+# 1. Install
+git clone <repo-url> && cd loop-agent
+uv sync
+
+# 2. Run the autonomous loop
+uv run loop-agent go --goal "Build a REST API with user auth and tests"
+
+# 3. That's it — it runs until it's done
 ```
 
-Install required packages:
+---
 
-```bash
-agents-cli install
-```
+## Terminal Output
 
-Test the agent with a local web server:
+<p align="center">
+  <img src="assets/terminal.png" alt="Terminal Output" width="100%">
+</p>
 
-```bash
-agents-cli playground
-```
+---
 
-You can also use features from the [ADK](https://adk.dev/) CLI with `uv run adk`.
+## Agents
+
+<p align="center">
+  <img src="assets/workflow.png" alt="Agents and Pipeline" width="100%">
+</p>
+
+### The 5 Agents
+
+| Agent | States | Purpose |
+|-------|--------|---------|
+| **Initializer** | DISCOVERY, INITIALIZING | Interviews user, creates harness + loop files |
+| **Harness** | PLANNING, SCAFFOLDING | Plans work, reviews progress, prepares releases |
+| **Coding** | IMPLEMENTING, REWORK | Implements one feature per session |
+| **Verifying** | VERIFYING | Runs tests, checks quality, reports pass/fail |
+| **T3MP3ST** | BUG_HUNT | Multi-engine bug hunter (recon → scan → exploit → review → report) |
+
+### Orchestrator
+
+The **Orchestrator** is a procedural state machine that routes between agents. It's not an LLM agent — it's deterministic code that:
+
+- Routes between states based on handler results
+- Syncs core files after every phase
+- Tracks goal and loops completed
+- Supports resume from `.loop-session.json`
+
+---
 
 ## Commands
 
-| Command              | Description                                                                                 |
-| -------------------- | ------------------------------------------------------------------------------------------- |
-| `agents-cli install` | Install dependencies using uv                                                         |
-| `agents-cli playground` | Launch local development environment                                                  |
-| `agents-cli lint`    | Run code quality checks                                                               |
-| `agents-cli eval`    | Evaluate agent behavior (generate, grade, analyze, and more — see `agents-cli eval --help`) |
-| `uv run pytest tests/unit tests/integration` | Run unit and integration tests                                                        |
-| `agents-cli deploy`  | Deploy agent to Agent Runtime                                                                |
-| `agents-cli publish gemini-enterprise` | Register deployed agent to Gemini Enterprise                    || [A2A Inspector](https://github.com/a2aproject/a2a-inspector) | Launch A2A Protocol Inspector                                                        |
-| `agents-cli infra single-project` | Set up single-project infrastructure using Terraform                              |
+```bash
+# Full autonomous loop (single command)
+loop-agent go --goal "Build a REST API" --project-dir ./my-api
 
-## 🛠️ Project Management
+# Interactive initialization only
+loop-agent init --project-dir ./my-api
 
-| Command | What It Does |
-|---------|--------------|
-| `agents-cli infra cicd` | One-command setup of entire CI/CD pipeline + infrastructure |
-| `agents-cli scaffold upgrade` | Auto-upgrade to latest version while preserving customizations |
+# Harness modes
+loop-agent harness plan --project-dir ./my-api --goal "Scope the project"
+loop-agent harness review --project-dir ./my-api
+loop-agent harness release --project-dir ./my-api
+
+# Single feature implementation
+loop-agent coding --project-dir ./my-api --task-id "feature-1"
+
+# Bug hunt only (static + dynamic + LLM review)
+loop-agent hunt --project-dir ./my-api
+
+# Autonomous loop (with max iteration safety limit)
+loop-agent loop --goal "Build a REST API" --max-loops 10
+```
+
+---
+
+## Skills
+
+Each agent is documented as an **anthropic-format skill** under `skills/`:
+
+```
+skills/
+  initializer/SKILL.md   — Interview + scaffold workflow
+  harness/SKILL.md       — Plan / review / release modes
+  coding/SKILL.md        — One feature per session
+  verifying/SKILL.md     — Test runner + quality gate
+  t3mp3st/SKILL.md       — Multi-engine bug hunting
+  loop/SKILL.md          — Autonomous orchestrator
+```
+
+Validate skills:
+
+```bash
+skills-ref validate skills/*
+```
+
+---
+
+## Core Files
+
+After initialization, the project contains these loop-tracked files:
+
+| File | Purpose |
+|------|---------|
+| `AGENTS.md` | Project instructions + agent run log |
+| `loop-rules.md` | Global constitution for all agents |
+| `LOOP.md` | Loop shape + state file locations |
+| `context.md` | Project description + stack + commands |
+| `state.md` | Current loop state + goals + log |
+| `tasks/todo.md` | Task breakdown + feature tracking |
+| `tasks/lessons.md` | Lessons learned from failures |
+| `.loop-session.json` | Session persistence (resume support) |
+
+All of these are **automatically synced** after every phase change — you never need to edit them manually.
 
 ---
 
 ## Development
 
-Edit your agent logic in `app/agent.py` and test with `agents-cli playground` - it auto-reloads on save.
-
-## Deployment
-
 ```bash
-gcloud config set project <your-project-id>
-agents-cli deploy
+# Install dependencies
+uv sync
+
+# Run tests
+uv run pytest tests -v
+
+# Validate skills
+skills-ref validate skills/*
+
+# Run the agent CLI
+uv run loop-agent --help
 ```
-To set up your production infrastructure, run `agents-cli infra cicd`.
 
-## Observability
+### Project Structure
 
-Built-in telemetry exports to Cloud Trace, BigQuery, and Cloud Logging.
+```
+loop-agent/
+  app/
+    agents/
+      initializer/   — InitializerAgent
+      harness/       — HarnessAgent
+      coding/        — CodingAgent
+      verifying/     — VerifyingAgent
+      t3mp3st/       — T3MP3STAgent (bug hunter)
+      loop/          — Orchestrator
+    session/         — Session persistence
+    schemas/         — State machine + enums
+    core_sync.py     — Auto-sync utility
+    cli.py           — CLI entry point
+  skills/            — Anthropic-format SKILL.md files
+  assets/            — Visual assets (banner, terminal, workflow)
+  tests/             — Integration tests
+```
 
-## A2A Inspector
+---
 
-This agent supports the [A2A Protocol](https://a2a-protocol.org/). Use the [A2A Inspector](https://github.com/a2aproject/a2a-inspector) to test interoperability.
-See the [A2A Inspector docs](https://github.com/a2aproject/a2a-inspector) for details.
+## License
+
+MIT
+
+---
+
+<p align="center">
+  Built with a lazy senior dev mentality — the shortest path to done is the right path.
+</p>

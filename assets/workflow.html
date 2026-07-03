@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Workflow</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0f172a;display:flex;justify-content:center;align-items:center;min-height:100vh;font-family:'Segoe UI',system-ui,-apple-system,sans-serif;padding:40px}
+.container{width:1000px}
+h2{color:#f1f5f9;font-size:24px;font-weight:700;margin-bottom:8px;letter-spacing:-0.5px}
+.sub{color:#94a3b8;font-size:14px;margin-bottom:32px}
+.flow{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-bottom:40px}
+.step{display:flex;align-items:center;gap:0}
+.node{background:#1e293b;border:1px solid rgba(99,102,241,0.2);padding:12px 20px;border-radius:10px;text-align:center;min-width:120px}
+.node .s{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:#64748b;margin-bottom:4px}
+.node .n{font-size:13px;font-weight:600;color:#e2e8f0}
+.node .a{font-size:11px;color:#64748b;margin-top:2px}
+.arrow{color:#475569;font-size:20px;padding:0 4px}
+.node-d{background:rgba(99,102,241,0.1);border-color:rgba(99,102,241,0.3)}
+.node-d .n{color:#818cf8}
+.node-p{background:rgba(34,211,238,0.1);border-color:rgba(34,211,238,0.3)}
+.node-p .n{color:#22d3ee}
+.node-i{background:rgba(251,191,36,0.1);border-color:rgba(251,191,36,0.3)}
+.node-i .n{color:#fbbf24}
+.node-v{background:rgba(52,211,153,0.1);border-color:rgba(52,211,153,0.3)}
+.node-v .n{color:#34d399}
+.node-b{background:rgba(244,114,182,0.1);border-color:rgba(244,114,182,0.3)}
+.node-b .n{color:#f472b6}
+.node-r{background:rgba(167,139,250,0.1);border-color:rgba(167,139,250,0.3)}
+.node-r .n{color:#a78bfa}
+.node-ok{background:rgba(34,197,94,0.1);border-color:rgba(34,197,94,0.3)}
+.node-ok .n{color:#34d399;font-size:15px}
+.node-fail{background:rgba(239,68,68,0.1);border-color:rgba(239,68,68,0.3)}
+.node-fail .n{color:#ef4444;font-size:15px}
+.agents{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card{background:#1e293b;border:1px solid rgba(255,255,255,0.06);border-radius:14px;padding:20px}
+.card .head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.card .icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px}
+.card .name{font-size:15px;font-weight:600;color:#e2e8f0}
+.card .states{font-size:11px;color:#64748b}
+.card .desc{font-size:13px;color:#94a3b8;line-height:1.5}
+.i1{background:rgba(99,102,241,0.2)} .i1c{color:#818cf8}
+.i2{background:rgba(34,211,238,0.2)} .i2c{color:#22d3ee}
+.i3{background:rgba(251,191,36,0.2)} .i3c{color:#fbbf24}
+.i4{background:rgba(52,211,153,0.2)} .i4c{color:#34d399}
+.i5{background:rgba(244,114,182,0.2)} .i5c{color:#f472b6}
+.i6{background:rgba(167,139,250,0.2)} .i6c{color:#a78bfa}
+</style>
+</head>
+<body>
+<div class="container">
+  <h2>Pipeline Flow</h2>
+  <p class="sub">The orchestrator routes through these states until READY or FAILED</p>
+  <div class="flow">
+    <div class="step"><div class="node node-d"><div class="s">01</div><div class="n">DISCOVERY</div><div class="a">Initializer</div></div><span class="arrow">→</span></div>
+    <div class="step"><div class="node node-p"><div class="s">02</div><div class="n">PLANNING</div><div class="a">Harness</div></div><span class="arrow">→</span></div>
+    <div class="step"><div class="node node-d"><div class="s">03</div><div class="n">SCAFFOLDING</div><div class="a">Harness</div></div><span class="arrow">→</span></div>
+    <div class="step"><div class="node node-i"><div class="s">04</div><div class="n">INITIALIZING</div><div class="a">Initializer</div></div><span class="arrow">→</span></div>
+    <div class="step"><div class="node node-i"><div class="s">05</div><div class="n">IMPLEMENTING</div><div class="a">Coding</div></div><span class="arrow">→</span></div>
+    <div class="step"><div class="node node-v"><div class="s">06</div><div class="n">SELF_CHECK</div><div class="a">Orchestrator</div></div><span class="arrow">→</span></div>
+    <div class="step"><div class="node node-v"><div class="s">07</div><div class="n">VERIFYING</div><div class="a">Verifying</div></div><span class="arrow">→</span></div>
+    <div class="step"><div class="node node-b"><div class="s">08</div><div class="n">BUG_HUNT</div><div class="a">T3MP3ST</div></div><span class="arrow">→</span></div>
+    <div class="step"><div class="node node-r"><div class="s">09</div><div class="n">REWORK</div><div class="a">Coding</div></div><span class="arrow">→</span></div>
+    <div class="step"><div class="node node-ok"><div class="s">✓</div><div class="n">READY</div><div class="a">Harness</div></div></div>
+    <div class="step"><div class="node node-fail"><div class="s">✗</div><div class="n">FAILED</div><div class="a">Manual</div></div></div>
+  </div>
+
+  <h2>Agents</h2>
+  <p class="sub">Specialized agents, each documented as an anthropic-format skill</p>
+  <div class="agents">
+    <div class="card"><div class="head"><span class="icon i1 i1c">⟳</span><div><div class="name">Initializer</div><div class="states">DISCOVERY, INITIALIZING</div></div></div><div class="desc">Interviews the user, captures requirements, creates harness scaffolding and loop files.</div></div>
+    <div class="card"><div class="head"><span class="icon i2 i2c">📋</span><div><div class="name">Harness</div><div class="states">PLANNING, SCAFFOLDING</div></div></div><div class="desc">Plans work, creates specs, reviews progress, and prepares releases.</div></div>
+    <div class="card"><div class="head"><span class="icon i3 i3c">💻</span><div><div class="name">Coding</div><div class="states">IMPLEMENTING, REWORK</div></div></div><div class="desc">Implements one feature per session, following the feature list.</div></div>
+    <div class="card"><div class="head"><span class="icon i4 i4c">✓</span><div><div class="name">Verifying</div><div class="states">VERIFYING</div></div></div><div class="desc">Runs tests, checks quality, reports pass/fail results.</div></div>
+    <div class="card"><div class="head"><span class="icon i5 i5c">🐛</span><div><div class="name">T3MP3ST</div><div class="states">BUG_HUNT</div></div></div><div class="desc">Multi-engine bug hunter: recon, scan, exploit, review, report.</div></div>
+    <div class="card"><div class="head"><span class="icon i6 i6c">▶</span><div><div class="name">Orchestrator</div><div class="states">All states</div></div></div><div class="desc">Procedural state machine that routes between agents and syncs state.</div></div>
+  </div>
+</div>
+</body>
+</html>

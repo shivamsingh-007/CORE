@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Workflow GIF Frame</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0f172a;display:flex;justify-content:center;align-items:center;min-height:100vh;font-family:'Segoe UI',system-ui,-apple-system,sans-serif;padding:40px}
+.container{width:1000px}
+h2{color:#f1f5f9;font-size:22px;font-weight:700;margin-bottom:6px;letter-spacing:-0.5px}
+.sub{color:#94a3b8;font-size:13px;margin-bottom:28px}
+.flow{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:36px}
+.step{display:flex;align-items:center;gap:0}
+.node{background:#1e293b;border:1px solid rgba(99,102,241,0.15);padding:10px 16px;border-radius:8px;text-align:center;min-width:110px;transition:all 0.3s}
+.node .s{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:#475569;margin-bottom:3px}
+.node .n{font-size:12px;font-weight:600;color:#64748b}
+.node .a{font-size:10px;color:#475569;margin-top:2px}
+.arrow{color:#334155;font-size:18px;padding:0 3px;transition:color 0.3s}
+
+/* Active state highlighting */
+.node.active{border-color:rgba(99,102,241,0.6);box-shadow:0 0 20px rgba(99,102,241,0.15)}
+.node.active .s{color:#818cf8}
+.node.active .n{color:#818cf8;font-size:13px}
+.node.active .a{color:#a5b4fc}
+
+.node.past{border-color:rgba(52,211,153,0.4)}
+.node.past .n{color:#34d399}
+.node.past .a{color:#6ee7b7}
+.node.past .s{color:#34d399}
+
+.node.next{border-color:rgba(251,191,36,0.3)}
+.node.next .n{color:#fbbf24}
+.node.next .a{color:#fcd34d}
+
+.node.error{border-color:rgba(239,68,68,0.4);box-shadow:0 0 20px rgba(239,68,68,0.15)}
+.node.error .n{color:#ef4444}
+.node.error .a{color:#fca5a5}
+
+.node.done{border-color:rgba(34,197,94,0.4);box-shadow:0 0 20px rgba(34,197,94,0.15)}
+.node.done .n{color:#22c55e}
+.node.done .a{color:#86efac}
+
+.arrow.active-arrow{color:#818cf8}
+.arrow.past-arrow{color:#34d399}
+.arrow.next-arrow{color:#fbbf24}
+
+.agents{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.card{background:#1e293b;border:1px solid rgba(255,255,255,0.04);border-radius:10px;padding:14px;transition:all 0.3s}
+.card .head{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.card .icon{width:26px;height:26px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px}
+.card .name{font-size:13px;font-weight:600;color:#64748b}
+.card .states{font-size:10px;color:#475569}
+.card .desc{font-size:11px;color:#64748b;line-height:1.4}
+
+.card.card-active{border-color:rgba(99,102,241,0.5);box-shadow:0 0 15px rgba(99,102,241,0.1)}
+.card.card-active .name{color:#818cf8}
+.card.card-active .desc{color:#94a3b8}
+
+.i1{background:rgba(99,102,241,0.15);color:#818cf8}
+.i2{background:rgba(34,211,238,0.15);color:#22d3ee}
+.i3{background:rgba(251,191,36,0.15);color:#fbbf24}
+.i4{background:rgba(52,211,153,0.15);color:#34d399}
+.i5{background:rgba(244,114,182,0.15);color:#f472b6}
+.i6{background:rgba(167,139,250,0.15);color:#a78bfa}
+</style>
+</head>
+<body>
+<div class="container">
+  <h2>Workflow</h2>
+  <p class="sub">Orchestrator routes through states until READY or FAILED</p>
+  <div class="flow">
+    <div class="step" id="s0"><div class="node" id="n0"><div class="s">01</div><div class="n">DISCOVERY</div><div class="a">Initializer</div></div><span class="arrow" id="a0">→</span></div>
+    <div class="step" id="s1"><div class="node" id="n1"><div class="s">02</div><div class="n">PLANNING</div><div class="a">Harness</div></div><span class="arrow" id="a1">→</span></div>
+    <div class="step" id="s2"><div class="node" id="n2"><div class="s">03</div><div class="n">SCAFFOLDING</div><div class="a">Harness</div></div><span class="arrow" id="a2">→</span></div>
+    <div class="step" id="s3"><div class="node" id="n3"><div class="s">04</div><div class="n">INITIALIZING</div><div class="a">Initializer</div></div><span class="arrow" id="a3">→</span></div>
+    <div class="step" id="s4"><div class="node" id="n4"><div class="s">05</div><div class="n">IMPLEMENTING</div><div class="a">Coding</div></div><span class="arrow" id="a4">→</span></div>
+    <div class="step" id="s5"><div class="node" id="n5"><div class="s">06</div><div class="n">SELF_CHECK</div><div class="a">Orchestrator</div></div><span class="arrow" id="a5">→</span></div>
+    <div class="step" id="s6"><div class="node" id="n6"><div class="s">07</div><div class="n">VERIFYING</div><div class="a">Verifying</div></div><span class="arrow" id="a6">→</span></div>
+    <div class="step" id="s7"><div class="node" id="n7"><div class="s">08</div><div class="n">BUG_HUNT</div><div class="a">T3MP3ST</div></div><span class="arrow" id="a7">→</span></div>
+    <div class="step" id="s8"><div class="node" id="n8"><div class="s">09</div><div class="n">REWORK</div><div class="a">Coding</div></div><span class="arrow" id="a8">→</span></div>
+    <div class="step" id="s9"><div class="node" id="n9"><div class="s">✓</div><div class="n">READY</div><div class="a">Harness</div></div></div>
+  </div>
+</div>
+</body>
+</html>

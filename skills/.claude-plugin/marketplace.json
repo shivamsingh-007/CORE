@@ -1,0 +1,23 @@
+{
+  "name": "loop-agent-skills",
+  "metadata": {
+    "description": "Loop Agent: autonomous multi-agent development pipeline with PLAN→IMPLEMENT→VERIFY cycles",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "loop-agent-core",
+      "description": "Core loop agent skills for autonomous development",
+      "source": "../",
+      "strict": false,
+      "skills": [
+        "./skills/initializer",
+        "./skills/harness",
+        "./skills/coding",
+        "./skills/verifying",
+        "./skills/t3mp3st",
+        "./skills/loop"
+      ]
+    }
+  ]
+}

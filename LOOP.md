@@ -1,33 +1,40 @@
-# LOOP.md — Loop Agent Project (ADK)
+# LOOP.md — Autonomous Multi-Agent Loop
 
-This project implements a **loop agent** built on Google ADK.
+## Loop States
+```
+DISCOVERY → PLANNING → SCAFFOLDING → INITIALIZING → IMPLEMENTING → SELF_CHECK → VERIFYING → BUG_HUNT → REWORK → READY
+                                                                                              ↓         ↑
+                                                                                           FAILED
+```
 
-## Loop Rules
-All loops must follow `loop-rules.md`.
+| State | Agent | What happens |
+|-------|-------|-------------|
+| DISCOVERY | Initializer | Interview user, gather requirements |
+| PLANNING | Harness | Scope project, create specs |
+| SCAFFOLDING | Harness | Create project structure |
+| INITIALIZING | Initializer | Scaffold harness + loop files |
+| IMPLEMENTING | Coding | One feature per session |
+| SELF_CHECK | Orchestrator | Check feature_list.json |
+| VERIFYING | Verifying | Run tests, check quality |
+| BUG_HUNT | T3MP3ST | Multi-engine bug scan |
+| REWORK | Coding | Fix issues, re-implement |
+| READY | Harness | Release |
+| FAILED | — | Manual intervention needed |
 
-## Loop Shape
-1. PLAN_NEXT_STEP
-2. IMPLEMENT_STEP
-3. VERIFY_STEP (uv run pytest + agents-cli eval)
-4. DECIDE_RETRY_OR_ADVANCE
-5. UPDATE_STATE_AND_COMMIT
-6. REPEAT until goal done
+## Auto-Sync
+After every phase change, the orchestrator calls `sync_core_files()` to update:
+- `AGENTS.md` — agent run log
+- `context.md` — project description + goal
+- `state.md` — current state, loops, features
+- `tasks/todo.md` — feature tracking
+- `tasks/lessons.md` — lessons learned
 
-## Active Loop: Project Builder
-- **Cadence**: per session
-- **State**: state.md
-- **Tasks**: tasks/todo.md
-- **Lessons**: tasks/lessons.md
-- **Verification**: `uv run pytest tests/unit tests/integration`
-- **Smoke test**: `agents-cli run "check compliance for ."`
-- **Playground**: `agents-cli playground`
+## State
+- `state.md` — current loop state
+- `tasks/todo.md` — task breakdown
+- `tasks/lessons.md` — lessons learned
+- `.loop-session.json` — session persistence (resume support)
 
-## Steps
-1. Core files setup (AGENTS.md, context.md, LOOP.md, loop-rules.md, state.md, tasks/)
-2. ADK project scaffold via agents-cli
-3. Loop agent tools (check_loop_compliance, init_loop_project, read_loop_state)
-4. Agent config in app/agent.py
-5. Verify and finalize
-
-## Multi-loop
-See `multiloop.md` for coordination rules.
+## Verification
+- `uv run pytest tests -v`
+- `skills-ref validate skills/*`
